@@ -1,29 +1,22 @@
 ﻿using Content.Server.Chat.Managers;
-using Content.Server.GameTicking;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.GenericAntag;
 using Content.Server.Interaction;
-using Content.Server.Popups;
 using Content.Server.Roles;
 using Content.Server.StationEvents.Events;
 using Content.Shared.LegallyDistinctSpaceFerret;
 using Content.Shared.Mind;
 using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.Roles;
-using Robust.Server.Audio;
 using Robust.Shared.Audio;
 
 namespace Content.Server.LegallyDistinctSpaceFerret;
 
 public sealed class LegallyDistinctSpaceFerretSystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
     [Dependency] private readonly RoleSystem _role = default!;
     [Dependency] private readonly IChatManager _chatMan = default!;
     [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
 
     public override void Initialize()
     {

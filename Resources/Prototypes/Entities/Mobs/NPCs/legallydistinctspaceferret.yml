@@ -207,13 +207,6 @@
   - accent-words-legallydistinctspaceferret-7
   - accent-words-legallydistinctspaceferret-8
 
-- type: speechVerb
-  id: Wawa
-  speechVerbStrings:
-  - chat-speech-verb-wawa-1
-  - chat-speech-verb-wawa-2
-  - chat-speech-verb-wawa-3
-
 - type: palette
   id: LegallyDistinctSpaceFerretColors
   name: LegallyDistinctSpaceFerretColors

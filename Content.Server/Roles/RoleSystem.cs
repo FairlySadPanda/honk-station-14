@@ -1,3 +1,4 @@
+using Content.Server.Scurret.Scavenger;
 using Content.Shared.Roles;
 
 namespace Content.Server.Roles;
@@ -19,6 +20,7 @@ public sealed class RoleSystem : SharedRoleSystem
         SubscribeAntagEvents<TraitorRoleComponent>();
         SubscribeAntagEvents<ZombieRoleComponent>();
         SubscribeAntagEvents<ThiefRoleComponent>();
+        SubscribeAntagEvents<ScurretScavengerRoleComponent>();
     }
 
     public string? MindGetBriefing(EntityUid? mindId)

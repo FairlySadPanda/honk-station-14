@@ -72,8 +72,7 @@ public sealed class WaddleAnimationSystem : EntitySystem
 
         if (_gravity.IsWeightless(uid))
             return;
-
-
+        
         if (!_actionBlocker.CanMove(uid, mover))
             return;
 

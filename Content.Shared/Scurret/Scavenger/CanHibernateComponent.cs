@@ -1,10 +1,11 @@
 ﻿using Content.Shared.Actions;
+using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.LegallyDistinctSpaceFerret;
+namespace Content.Shared.Scurret.Scavenger;
 
-[RegisterComponent]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class CanHibernateComponent : Component
 {
     [DataField]
@@ -13,13 +14,13 @@ public sealed partial class CanHibernateComponent : Component
     [DataField]
     public EntityUid? EepyActionEntity;
 
-    [DataField]
+    [DataField, AutoNetworkedField]
     public string NotEnoughNutrientsMessage = "";
 
-    [DataField]
+    [DataField, AutoNetworkedField]
     public string TooFarFromHibernationSpot = "";
 
-    [DataField]
+    [DataField, AutoNetworkedField]
     public string SpriteStateId = "";
 }
 

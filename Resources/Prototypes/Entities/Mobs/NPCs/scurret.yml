@@ -1,0 +1,306 @@
+﻿- type: entity
+  name: Scurret
+  id: MobScurret
+  parent: MobBaseAncestor
+  description: Commonly known as Wawas, from the wetlands of Planet Wawa, these critters make up the bulk of Arnolds' Pizza's "loyal workforce".
+  components:
+  # Basics
+  - type: Scurret
+  - type: CanBackflip
+    clappaSfx: /Audio/Animals/slugclappa.ogg
+  - type: NameIdentifier
+    group: Scurret
+  - type: ReplacementAccent
+    accent: scurret
+  - type: Sprite
+    drawdepth: SmallMobs
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      sprite: Mobs/Animals/scurret.rsi
+      state: scurret
+    - map: [ "enum.HumanoidVisualLayers.Handcuffs" ]
+      color: "#ffffff"
+      sprite: Objects/Misc/handcuffs.rsi
+      state: body-overlay-2
+      visible: false
+  - type: RandomSprite
+    getAllGroups: true
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        scurret: ScurretColors
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: scurret
+      Critical:
+        Base: scurret_oof
+      Dead:
+        Base: scurret_rip
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      60: Critical
+      125: Dead
+  - type: Temperature
+    heatDamageThreshold: 360
+    coldDamageThreshold: 285
+    currentTemperature: 310.15
+    specificHeat: 42
+  - type: Butcherable
+    butcheringType: Spike
+    spawned:
+    - id: FoodMeat
+      amount: 4 # Good eatin', you monster.
+  # They wawa
+  - type: Speech
+    speechVerb: Wawa
+    speechSounds: Wawa
+  - type: TypingIndicator
+    proto: moth
+  # They hard to pet
+  - type: InteractionPopup
+    successChance: 0.5
+    interactSuccessString: petting-success-scurret
+    interactFailureString: petting-failure-scurret
+    interactSuccessSpawn: EffectHearts
+    interactSuccessSound:
+      path: /Audio/Animals/wawa_chillin.ogg
+    interactFailureSound:
+      path: /Audio/Animals/wawa_chatter.ogg
+  # They nyoom and go under doors/tables
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 5 # nyoom
+    baseSprintSpeed: 7 # NYOOOOOM
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/Effects/bite.ogg
+    angle: 30
+    animation: WeaponArcBite
+    damage:
+      types:
+        Piercing: 15 # NOM - Do NOT mess with skugs.
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.2
+        density: 120
+        mask:
+        - SmallMobMask
+        layer:
+        - SmallMobLayer
+  - type: Inventory
+    templateId: scurret
+  - type: InventorySlots
+  - type: Food
+  - type: Hunger
+    baseDecayRate: 0.3
+
+- type: nameIdentifierGroup
+  id: Scurret
+  minValue: 1
+  maxValue: 99
+
+- type: inventoryTemplate
+  id: scurret
+  slots:
+  - name: head
+    slotTexture: head
+    slotFlags: HEAD
+    uiWindowPos: 1,2
+    strippingWindowPos: 0,0
+    displayName: Head
+  - name: ears
+    slotTexture: ears
+    slotFlags: EARS
+    stripTime: 3
+    uiWindowPos: 0,2
+    strippingWindowPos: 1,2
+    displayName: Ears
+  - name: mask
+    slotTexture: mask
+    slotFlags: MASK
+    uiWindowPos: 0,1
+    strippingWindowPos: 1,1
+    displayName: Mask
+  - name: id
+    slotTexture: id
+    slotFlags: IDCARD
+    slotGroup: SecondHotbar
+    stripTime: 6
+    uiWindowPos: 2,1
+    strippingWindowPos: 2,4
+    displayName: ID
+
+- type: speechSounds
+  id: Wawa
+  saySound:
+    path: /Audio/Animals/wawa_statement.ogg
+  askSound:
+    path: /Audio/Animals/wawa_question.ogg
+  exclaimSound:
+    path: /Audio/Animals/wawa_exclaim.ogg
+
+# Scurret Scavenger
+
+- type: entity
+  name: Scurret Scavenger
+  id: MobScurretScavenger
+  parent: MobScurret
+  description: Commonly known as Wawas, from the wetlands of Planet Wawa, this critter seems to have made its home in the station's vents.
+  components:
+# Round impact
+  - type: ScurretScavenger
+    roleIntroSfx: /Audio/Animals/wawa_intro.ogg
+    roleBriefing: scurret-scavenger-role-briefing
+    roleGreeting: scurret-scavenger-role-greeting
+    hibernateSpriteStateId: scurret_eepy
+    tooFarFromHibernationSpot: scurret-scavenger-out-of-range
+    notEnoughNutrientsMessage: scurret-scavenger-not-enough-nutrients
+  - type: GhostRole
+    prob: 1
+    makeSentient: true
+    name: ghost-role-information-scurret-scavenger-name
+    description: ghost-role-information-scurret-scavenger-description
+  - type: GenericAntag
+    rule: ScurretScavengerRule
+  - type: GhostTakeoverAvailable
+
+- type: entity
+  parent: BaseGameRule
+  id: ScurretScavengerSpawn
+  noSpawn: true
+  components:
+  - type: StationEvent
+    weight: 10
+    duration: 1
+    minimumPlayers: 10
+  - type: ScurretScavengerSpawnRule
+
+- type: entity
+  id: SpawnPointGhostScurretScavenger
+  name: ghost role spawn point
+  suffix: scurret scavenger
+  parent: MarkerBase
+  components:
+  - type: GhostRole
+    name: ghost-role-information-scurret-scavenger-name
+    description: ghost-role-information-scurret-scavenger-description
+    rules: ghost-role-information-scurret-scavenger-rules
+  - type: GhostRoleMobSpawner
+    prototype: MobScurretScavenger
+  - type: Sprite
+    sprite: Mobs/Animals/scurret.rsi
+    layers:
+    - state: scurret_eepy
+
+- type: entity
+  noSpawn: true
+  parent: BaseGameRule
+  id: ScurretScavengerRule
+  components:
+  - type: GenericAntagRule
+    agentName: scurret-scavenger-round-end-agent-name
+    objectives:
+    - ConsumeNutrientsObjective
+    - HibernateObjective
+
+- type: entity
+  abstract: true
+  parent: BaseObjective
+  id: BaseScurretScavengerObjective
+  components:
+  - type: Objective
+    difficulty: 1.5
+    issuer: scurretscavenger
+  - type: RoleRequirement
+    roles:
+      components:
+      - ScurretScavengerRole
+
+- type: entity
+  parent: BaseScurretScavengerObjective
+  id: ConsumeNutrientsObjective
+  description: Consume enough food to survive space winter. Does space winter event exist? Well, enough to survive until the next shift, anyway.
+  noSpawn: true
+  components:
+  - type: Objective
+    icon:
+      sprite: Mobs/Animals/scurret.rsi
+      state: scurret_eepy
+  - type: ConsumeNutrientsCondition
+    nutrientsRequired: 300.0
+
+- type: entity
+  parent: BaseScurretScavengerObjective
+  id: HibernateObjective
+  description: Hibernate in the warm embrace of a gas scrubber.
+  noSpawn: true
+  components:
+  - type: Objective
+    icon:
+      sprite: Mobs/Animals/scurret.rsi
+      state: scurret_eepy
+  - type: HibernateCondition
+    successMessage: scurret-scavenger-you-win-popup
+    successSfx: /Audio/Animals/wawa_outro.ogg
+
+- type: accent
+  id: scurret
+  fullReplacements:
+  - accent-words-scurret-1
+  - accent-words-scurret-2
+  - accent-words-scurret-3
+  - accent-words-scurret-4
+  - accent-words-scurret-5
+  - accent-words-scurret-6
+  - accent-words-scurret-7
+  - accent-words-scurret-8
+
+- type: palette
+  id: ScurretColors
+  name: ScurretColors
+  colors:
+    Normal: "#ffffff"
+    Innocent: "#f6f439"
+    Angry: "#dc5864"
+    Eldritch: "#dc5864"
+    Perceptive: "#222222"
+    Fat: "#fefcab"
+    Violent: "#ab3430"
+    Speedy: "#679cfe"
+    Mutated: "#7824a0"
+    Damned: "#98e652"
+
+- type: entity
+  id: ActionBackflip
+  name: Backflip
+  description: DO A BACKFLIP!
+  noSpawn: true
+  components:
+  - type: InstantAction
+    useDelay: 3
+    icon: Interface/Actions/backflip.png
+    event: !type:BackflipActionEvent
+    checkCanInteract: false
+
+- type: entity
+  id: ActionEepy
+  name: Eepy
+  description: Hibernate. This only works if you're near an air scrubber and have eaten enough!
+  noSpawn: true
+  components:
+  - type: InstantAction
+    useDelay: 100
+    icon: { sprite: Mobs/Animals/scurret.rsi, state: scurret_eepy }
+    event: !type:EepyActionEvent
+    checkCanInteract: false
+
+- type: antag
+  id: ScurretScavenger
+  name: roles-antag-scurret-scavenger-agent-name
+  antagonist: true
+  setPreference: false
+  objective: roles-antag-scurret-scavenger-objective

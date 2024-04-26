@@ -4,14 +4,14 @@ using Content.Server.GameTicking;
 using Content.Server.Ghost.Roles.Components;
 using Content.Server.Popups;
 using Content.Shared.Interaction.Components;
-using Content.Shared.LegallyDistinctSpaceFerret;
 using Content.Shared.Mind;
 using Content.Shared.NPC;
 using Content.Shared.Popups;
+using Content.Shared.Scurret.Scavenger;
 using Robust.Server.Audio;
 using Robust.Shared.Audio;
 
-namespace Content.Server.LegallyDistinctSpaceFerret;
+namespace Content.Server.Scurret.Scavenger;
 
 public sealed class CanHibernateSystem : EntitySystem
 {
@@ -78,9 +78,4 @@ public sealed class CanHibernateSystem : EntitySystem
 
         args.Handled = true;
     }
-}
-
-public struct EntityHibernateAttemptSuccessEvent(EntityUid entity)
-{
-    public EntityUid Entity = entity;
 }

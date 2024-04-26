@@ -1,4 +1,4 @@
-﻿using Content.Shared.LegallyDistinctSpaceFerret;
+﻿using Content.Shared.Movement.Components;
 using Robust.Client.Animations;
 using Robust.Client.Audio;
 using Robust.Client.GameObjects;
@@ -6,9 +6,9 @@ using Robust.Shared.Animations;
 using Robust.Shared.Audio;
 using Robust.Shared.Player;
 
-namespace Content.Client.LegallyDistinctSpaceFerret;
+namespace Content.Client.Movement.Systems;
 
-public sealed class CanBackflipSystem : EntitySystem
+public sealed class BackflipAnimationSystem : EntitySystem
 {
     [Dependency] private readonly AnimationPlayerSystem _animation = default!;
     [Dependency] private readonly AudioSystem _audio = default!;
@@ -25,9 +25,10 @@ public sealed class CanBackflipSystem : EntitySystem
     public void OnBackflipEvent(DoABackFlipEvent args)
     {
         if (!TryGetEntity(args.Actioner, out var uid))
-        {
             return;
-        }
+
+        if (_animation.HasRunningAnimation(uid.Value, BackflipKey))
+            return;
 
         _animation.Play(uid.Value, new Animation
         {

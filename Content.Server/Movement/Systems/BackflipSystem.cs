@@ -1,9 +1,11 @@
 ﻿using Content.Server.Actions;
-using Content.Shared.LegallyDistinctSpaceFerret;
+using Content.Shared.Movement.Components;
+using BackflipActionEvent = Content.Shared.Movement.Components.BackflipActionEvent;
+using CanBackflipComponent = Content.Shared.Movement.Components.CanBackflipComponent;
 
-namespace Content.Server.LegallyDistinctSpaceFerret;
+namespace Content.Server.Movement.Systems;
 
-public sealed class CanBackflipSystem : EntitySystem
+public sealed class BackflipSystem : EntitySystem
 {
     [Dependency] private readonly ActionsSystem _actions = default!;
 

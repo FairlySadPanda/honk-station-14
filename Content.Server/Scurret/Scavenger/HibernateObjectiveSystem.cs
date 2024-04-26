@@ -1,7 +1,7 @@
-﻿using Content.Shared.LegallyDistinctSpaceFerret;
-using Content.Shared.Objectives.Components;
+﻿using Content.Shared.Objectives.Components;
+using Content.Shared.Scurret.Scavenger;
 
-namespace Content.Server.LegallyDistinctSpaceFerret;
+namespace Content.Server.Scurret.Scavenger;
 
 public sealed class HibernateObjectiveSystem : EntitySystem
 {

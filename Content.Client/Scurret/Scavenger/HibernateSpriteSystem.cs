@@ -1,11 +1,9 @@
-﻿using Content.Shared.LegallyDistinctSpaceFerret;
-using Robust.Client.Audio;
+﻿using Content.Shared.Scurret.Scavenger;
 using Robust.Client.GameObjects;
-using Robust.Shared.Audio;
 
-namespace Content.Client.LegallyDistinctSpaceFerret;
+namespace Content.Client.Scurret.Scavenger;
 
-public sealed class CanHibernateSystem : EntitySystem
+public sealed class HibernateSpriteSystem : EntitySystem
 {
     public override void Initialize()
     {
